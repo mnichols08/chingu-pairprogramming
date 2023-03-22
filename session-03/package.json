@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "pair programming session with canomogollon from chingu-voyages",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "serve dist",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -16,6 +19,7 @@
   },
   "homepage": "https://github.com/mnichols08/chingu-pairprogramming#readme",
   "devDependencies": {
+    "serve": "^14.2.0",
     "webpack": "^5.76.3",
     "webpack-cli": "^5.0.1"
   },
