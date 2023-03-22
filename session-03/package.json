@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/mnichols08/chingu-pairprogramming/issues"
   },
-  "homepage": "https://github.com/mnichols08/chingu-pairprogramming#readme"
+  "homepage": "https://github.com/mnichols08/chingu-pairprogramming#readme",
+  "devDependencies": {
+    "webpack": "^5.76.3",
+    "webpack-cli": "^5.0.1"
+  }
 }
