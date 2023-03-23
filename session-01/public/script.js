@@ -6,6 +6,7 @@ const type = () => document.querySelector('input[name="radios"]:checked').value;
 const lorem = () => document.querySelector(`input[type="checkbox"]`).checked;
 
 
+document.getElementById("year").innerText = new Date().getFullYear();
 
 function generateLorem(e) {
   e.preventDefault();
