@@ -1,118 +1,140 @@
 import _ from "lodash";
+import * as THREE from "three";
+
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { FontLoader } from "three/addons/loaders/FontLoader.js";
+import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
+
+var camera, scene, renderer;
+
+init();
+
+function init() {
+	document.getElementById("year").innerText = new Date().getFullYear();
+	camera = new THREE.PerspectiveCamera(
+		45,
+		window.innerWidth / window.innerHeight,
+		1,
+		1000
+	);
+	camera.position.set(0, -400, 600);
+
+	scene = new THREE.Scene();
+	//scene.background = new THREE.Color(0xf0f0f0);
+
+	const loader = new FontLoader();
+	loader.load("fonts/droid_sans_bold.typeface.json", function (font) {
+		const color = 0xf0f0f0;
+
+		const matDark = new THREE.LineBasicMaterial({
+			color: color,
+			side: THREE.DoubleSide,
+			opacity: 0.1,
+		});
+
+		const matLite = new THREE.MeshBasicMaterial({
+			color: color,
+			transparent: true,
+			opacity: 0.4,
+			side: THREE.DoubleSide,
+		});
+
+		const message = "   Pair \nProgramming \nSession 03";
+
+		const shapes = font.generateShapes(message, 100);
+
+		const geometry = new THREE.ShapeGeometry(shapes);
+
+		geometry.computeBoundingBox();
+
+		const xMid =
+			-0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
+
+		geometry.translate(xMid, 0, 0);
+
+		// make shape ( N.B. edge view not visible )
+
+		const text = new THREE.Mesh(geometry, matLite);
+		text.position.z = -10;
+		scene.add(text);
+
+		// make line shape ( N.B. edge view remains visible )
+
+		const holeShapes = [];
+
+		for (let i = 0; i < shapes.length; i++) {
+			const shape = shapes[i];
+
+			if (shape.holes && shape.holes.length > 0) {
+				for (let j = 0; j < shape.holes.length; j++) {
+					const hole = shape.holes[j];
+					holeShapes.push(hole);
+				}
+			}
+		}
+
+		shapes.push.apply(shapes, holeShapes);
+
+		const lineText = new THREE.Object3D();
+
+		for (let i = 0; i < shapes.length; i++) {
+			const shape = shapes[i];
+
+			const points = shape.getPoints();
+			const geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+			geometry.translate(xMid, 0, 0);
+
+			const lineMesh = new THREE.Line(geometry, matDark);
+			lineText.add(lineMesh);
+		}
+
+		scene.add(lineText);
+
+		render();
+	}); //end load function
+
+	renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+	renderer.setPixelRatio(window.devicePixelRatio);
+	renderer.setSize(window.innerWidth, window.innerHeight);
+
+	document.getElementById("tag").appendChild(renderer.domElement);
+
+	const controls = new OrbitControls(camera, renderer.domElement);
+
+	// to disable zoom
+	controls.enableZoom = false;
+
+	controls.target.set(0, 0, 0);
+	controls.update();
+
+	controls.addEventListener("change", render);
+
+	window.addEventListener("resize", onWindowResize);
+} // end init
+
+function onWindowResize() {
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+
+	renderer.setSize(window.innerWidth, window.innerHeight);
+
+	render();
+}
+
+function render() {
+	renderer.render(scene, camera);
+}
+
 let parent = document.querySelectorAll(".animate-text");
 for (let i = 0; i < parent.length; i++) {
-  parent[i].style.width = parent[i].children[0].clientWidth + "px";
+	parent[i].style.width = parent[i].children[0].clientWidth + "px";
 }
 function component(ele) {
-  const element = document.createElement(ele);
+	const element = document.createElement(ele);
 
-  // Lodash, now imported by this script
-  element.innerHTML = _.join(["Hello", "from webpack"], " ");
+	// Lodash, now imported by this script
+	element.innerHTML = _.join(["Hello", "from webpack"], " ");
 
-  return element;
+	return element;
 }
-
-//document.body.appendChild(component("div"));
-
-const renderPage = () => {
-  const pre = document.getElementById("app");
-  pre.innerHTML = `
-  <style>
-  /* taken from https://codepen.io/alvarotrigo/pen/rNwvmNb */
-  @import url(https://fonts.googleapis.com/css?family=Montserrat:800,200);
-body {
-  font-family: montserrat;
-  overflow-x: hidden;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  background: #1e2134;
-  line-height: 1.7;
-  color: #fff;
-  transform: skewY(-5deg);
-}
-
-.bg-text-container {
-  transform: translateX(-50%);
-  left: 50%;
-  position: absolute;
-  z-index: -999;
-}
-
-@keyframes text-scrolling {
-  0% {
-    transform: translate3d(-100%, 0, 0);
-  }
-  100% {
-    transform: translate3d(0%, 0, 0);
-  }
-}
-.animate-text {
-  animation: text-scrolling 20s linear infinite;
-  will-change: transform;
-  display: block;
-  position: relative;
-  white-space: nowrap;
-}
-.animate-text.left {
-  animation-direction: reverse;
-}
-
-span {
-  font-size: 280px;
-  color: transparent;
-  -webkit-text-stroke: 2px #30442a;
-  text-transform: uppercase;
-  display: inline-block;
-  line-height: 0.75;
-  min-width: auto;
-  font-weight: 800;
-}
-
-.container {
-  padding: 30px;
-  max-width: 1000px;
-  width: 100%;
-  margin: 0 auto;
-}
-.container .col {
-  max-width: 600px;
-  margin: 0;
-}
-
-h1 {
-  font-size: 90px;
-  margin: 0;
-}
-
-p {
-  font-size: 18px;
-  font-weight: 200;
-  margin: 0;
-}
-</style>
-  <div class="bg-text-container">
-    <div class="animate-text">
-      <span>mnichols08 canomogollon&nbsp;</span>
-      <span>mnichols08 canomogollon&nbsp;</span>
-    </div>
-    <div class="animate-text left">
-      <span>mnichols08 canomogollon&nbsp;</span>
-      <span>mnichols08 canomogollon&nbsp;</span>
-    </div>
-  </div>
-  
-  
-  
-  <div class="container">
-    <div class="col">
-      <h1>Pair Programming Session 03</h1>
-      <p>This app was created for the Chingu Pair Programming session during the week of March 22nd. Our goal is to create a header with animated / dynamic text in the center similer to the functionality found <a href="https://threejs.org/examples/#webgl_geometry_text_shapes" target="_blank">here</a> or <a href="https://codepen.io/alvarotrigo/pen/rNwvmNb" target="blank">this codepen</a> 
-      </p>
-    </div>
-  </div>
-  `;
-};
-
-renderPage();
