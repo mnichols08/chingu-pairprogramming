@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "concurrently": "^7.6.0",
-    "live-server": "^1.2.2"
+    "live-server": "^1.2.2",
+    "nodemon": "^2.0.21"
   }
 }

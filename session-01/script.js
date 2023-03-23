@@ -3,25 +3,23 @@ const button = document.querySelector('button');
 button.addEventListener('click', generateLorem);
 const length = () => document.querySelector("#inputNumber input").value;
 const type = () => document.querySelector('input[name="radios"]:checked').value;
-const static = () => document.querySelector(`input[type="checkbox"]`).checked;
+const lorem = () => document.querySelector(`input[type="checkbox"]`).checked;
 
 
 
 function generateLorem(e) {
   e.preventDefault();
-  console.log(fetchLorem());
+  fetchLorem();
 }
 
-const fetchLorem = async () => {
-
-  
-  return await fetch(`http://localhost:3000/${length()}/${type()}/${static()}`)
+const fetchLorem = async () => { 
+  return await fetch(`http://localhost:3000/${length()}/${type()}/${lorem()}`)
     .then(data => data.json())
     .then(obj => updateUi(obj))
     }
 
 const updateUi = (lorem) => {
-  const { paragraph, type, static } = lorem;
+  const { paragraph, type } = lorem;
   const anchor = document.getElementById("interfaceUpdate");
   anchor.innerHTML = "";
   if (type === "paragraphs") {

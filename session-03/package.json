@@ -1,0 +1,32 @@
+{
+  "name": "session-03",
+  "version": "1.0.0",
+  "description": "pair programming session with canomogollon from chingu-voyages",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "dev": "concurrently \"npm run watch\" \"npm start\" --kill-others-on-fail",
+    "start": "serve dist",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mnichols08/chingu-pairprogramming.git"
+  },
+  "author": "Mikey Nichols",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mnichols08/chingu-pairprogramming/issues"
+  },
+  "homepage": "https://github.com/mnichols08/chingu-pairprogramming#readme",
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "serve": "^14.2.0",
+    "webpack": "^5.76.3",
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "three": "^0.150.1"
+  }
+}
