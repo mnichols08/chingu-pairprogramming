@@ -1,1 +1,2 @@
 - [canomogollon](https://github.com/canomogollon)
+- [mnichols08](https://github.com/mnichols08)
