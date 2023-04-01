@@ -1,4 +1,4 @@
-﻿# chingu-pairprogramming-01 - Lorem Ipsum Generator
+# chingu-pairprogramming-01 - Lorem Ipsum Generator
 Tyler and Mikey's Pair Programming Session
 ## Overview
 This app was created for the Chingu Pair Programming session during the week of February 28th. It pulls data from the Lorem-Ipsum API to allow the user to generate Lorem Ipsum. They user can select the type of passage, the length of the passage and whether or not to start the passage with "Lorem ipsum dolor sit amet...'
