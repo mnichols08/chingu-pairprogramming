@@ -1,0 +1,82 @@
+@font-face {
+    font-family: 'digital';
+    src: url('./assets/digital-7.ttf');
+}
+
+body {
+    background: linear-gradient(45deg, #0d0404, #586d99);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+main {
+  display: grid;
+  justify-content: center;
+  height: 7.4em;
+}
+
+/*button container*/
+#button-container {
+  display: block;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.2rem;
+}
+
+#button-container button {
+  font-weight: bold;
+}
+
+#button-container button:hover {
+  zoom: 105%;
+  transition: .2s all;
+  border-radius: 2%;
+  background-color: rgba(244, 217, 41, 0.899);
+}
+
+main p {
+    font-family: digital;
+    font-size: 2em;
+    text-align: center;
+    border: solid rgba(22, 194, 45, 0.5) 1px;
+    background-color: rgba(18, 21, 33, 0.7);
+    color: rgba(83, 194, 4, 0.85);
+}
+ul#lap:before {
+    content: "Laps";
+}
+#lap {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 1em;
+    list-style: number;
+    background: linear-gradient(-45deg, #ffffff52, #cccccc0f);
+    border-radius: 2px;
+    box-shadow: 1px 2px 6px 1px;
+    display: none;   
+}
+header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+}
+footer{
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+}
+footer a, footer a:visited {
+    color: #fff;
+}
+footer a:hover {
+    color: rgba(200, 50, 10, 0.8);
+}
