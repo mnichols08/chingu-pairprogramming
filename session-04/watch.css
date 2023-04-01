@@ -79,9 +79,6 @@ footer a, footer a:visited {
 }
 footer a:hover {
     color: rgba(200, 50, 10, 0.8);
-@font-face {
-    font-family: 'digital';
-    src: url('./assets/digital-7.ttf');
 }
 
 body {
@@ -92,6 +89,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 main {
   display: grid;
   justify-content: center;
